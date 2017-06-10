@@ -11,22 +11,23 @@ namespace SpaceConsole
     {
         static void Main(string[] args)
         {
-            RunAsync().Wait();
+            string path = args[0];
+            RunAsync(path).Wait();
         }
 
-        static private async Task RunAsync()
+        static private async Task RunAsync(string path)
         {
             string Email = Constant.InfoEmail;
             string Password = Constant.Password;
 
             DateTime today = DateTime.UtcNow.AddHours(9);
 
-            var list = System.IO.File.ReadAllLines("theme.txt").ToList();
+            var list = System.IO.File.ReadAllLines(path).ToList();
             string firstTheme = list.First();
             list.RemoveAt(0);
             list.Add(firstTheme);
             string secondTheme = list.First();
-            System.IO.File.WriteAllLines("theme.txt", list);
+            System.IO.File.WriteAllLines(path, list);
 
             string message = new StringBuilder()
                 .AppendLine(today.ToString("M月d日(dddd)"))
