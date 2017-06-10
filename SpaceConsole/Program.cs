@@ -30,9 +30,11 @@ namespace SpaceConsole
 
             string message = new StringBuilder()
                 .AppendLine(today.ToString("M月d日(dddd)"))
-                .AppendLine("本日のテーマ")
+                .AppendLine("【本日のテーマ】")
                 .AppendLine("#" + secondTheme)
                 .AppendLine("#" + firstTheme)
+                .AppendLine("")
+                .AppendLine("（これ以外の話題や過去のテーマも大歓迎です！話題のひとつとしてお使いください）")
                 .ToString();
 
             var authenticationClient = new AuthenticationClient(Constant.Instance);
