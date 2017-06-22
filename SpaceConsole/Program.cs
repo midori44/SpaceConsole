@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -40,7 +39,13 @@ namespace SpaceConsole
             var auth = await authenticationClient.ConnectWithPassword(Email, Password);
             var MastodonClient = new MastodonClient(registration, auth);
 
-            await MastodonClient.PostStatus(message, Visibility.Public);
+            var post = await MastodonClient.PostStatus(message, Visibility.Public);
+
+            var statuses = await MastodonClient.GetAccountStatuses(post.Account.Id, post.Id);
+            foreach (var status in statuses)
+            {
+                await MastodonClient.DeleteStatus(status.Id);
+            }
         }
     }
 }
